@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Mart | CE-1 Shopping Cart</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="nav">
+            <div class="logo">
+                <i class="fa-solid fa-store"></i>
+                Shopping <span>Mart</span>
+            </div>
+
+            <button
+                class="cart-pill"
+                onclick="document.getElementById('cartPanel').scrollIntoView({behavior:'smooth'})">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+                Cart (<span id="cartCount">0</span>)
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <h1>Welcome to Shopping Mart!</h1>
+            <p>
+                Find your everyday favourites.
+                Browse products, build your cart, apply coupons
+                and enjoy a simple shopping experience.
+            </p>
+        </section>
+
+    
+        <div class="layout">
+
+    
+            <section class="panel">
+
+                <div class="section-head">
+                    <h2>
+                        <i class="fa-solid fa-box-open"></i>
+                        Explore Products
+                    </h2>
+
+                    <span id="resultCount" class="coupon-help"></span>
+                </div>
+
+          
+                <div class="filters">
+
+                    <div>
+                        <label for="categoryFilter">CATEGORY</label>
+
+                        <select id="categoryFilter">
+                            <option value="All">All categories</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Home">Home</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="priceFilter">MAX PRICE</label>
+
+                        <select id="priceFilter">
+                            <option value="999999">Any price</option>
+                            <option value="500">Up to ₹500</option>
+                            <option value="1000">Up to ₹1,000</option>
+                            <option value="2000">Up to ₹2,000</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="sortFilter">SORT BY</label>
+
+                        <select id="sortFilter">
+                            <option value="featured">Featured</option>
+                            <option value="low">Price: low to high</option>
+                            <option value="high">Price: high to low</option>
+                            <option value="name">Name: A to Z</option>
+                        </select>
+                    </div>
+
+                </div>
+
+      
+                <div class="products" id="products"></div>
+
+            </section>
+
+        
+            <aside class="panel cart-panel" id="cartPanel">
+
+                <div class="section-head">
+                    <h2>
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Your Cart
+                    </h2>
+
+                    <button class="secondary" id="clearCart">
+                        <i class="fa-solid fa-trash"></i>
+                        Clear
+                    </button>
+                </div>
+
+  
+                <div id="cartItems" class="cart-items"></div>
+
+            
+                <div>
+                    <label for="couponInput">DISCOUNT COUPON</label>
+
+                    <div class="coupon-row">
+                        <input
+                            id="couponInput"
+                            type="text"
+                            placeholder="Enter coupon code"
+                            aria-label="Coupon code"
+                        >
+
+                        <button class="primary" id="applyCoupon">
+                            <i class="fa-solid fa-tag"></i>
+                            Apply
+                        </button>
+                    </div>
+
+                   <p class="coupon-help">
+    Use WELCOME15 for 15% off or MART200 for ₹200 off.
+</p>
+                    <p
+                        id="couponMessage"
+                        class="message"
+                        aria-live="polite">
+                    </p>
+                </div>
+
+              
+                <div class="totals">
+
+                    <div class="total-line">
+                        <span>Subtotal</span>
+                        <strong id="subtotal">₹0.00</strong>
+                    </div>
+
+                    <div class="total-line">
+                        <span>Discount</span>
+                        <strong id="discount">−₹0.00</strong>
+                    </div>
+
+                    <div class="total-line">
+                        <span>Delivery</span>
+                        <strong id="delivery">₹0.00</strong>
+                    </div>
+
+                    <div class="total-line grand-total">
+                        <span>Total</span>
+                        <strong id="total">₹0.00</strong>
+                    </div>
+
+                    <button
+                        class="primary checkout-btn"
+                        id="checkoutButton">
+
+                        <i class="fa-solid fa-credit-card"></i>
+                        Proceed to Checkout
+                    </button>
+
+                    
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>
+            <i class="fa-solid fa-store"></i>
+            Shopping Mart | CE-1 Mini Project
+        </p>
+        <p>Built with HTML, CSS and JavaScript.</p>
+    </footer>
+
+    <dialog id="checkoutDialog">
+
+        <div class="modal-head">
+            <h2>
+                <i class="fa-solid fa-clipboard-check"></i>
+                Checkout
+            </h2>
+
+            <button
+                class="secondary"
+                id="closeCheckout"
+                aria-label="Close checkout">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-content">
+
+            <p class="coupon-help">
+                Enter customer details to place a demo order.
+            </p>
+
+            <form id="checkoutForm">
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="customerName">FULL NAME</label>
+
+                        <input
+                            id="customerName"
+                            type="text"
+                            required
+                            placeholder="Your name">
+                    </div>
+
+                    <div class="field">
+                        <label for="customerEmail">EMAIL</label>
+
+                        <input
+                            id="customerEmail"
+                            type="email"
+                            required
+                            placeholder="you@example.com">
+                    </div>
+
+                    <div class="field full">
+                        <label for="customerAddress">
+                            DELIVERY ADDRESS
+                        </label>
+
+                        <input
+                            id="customerAddress"
+                            type="text"
+                            required
+                            placeholder="House number, street, city">
+                    </div>
+
+                    <div class="field full">
+                        <label for="paymentMethod">
+                            PAYMENT METHOD
+                        </label>
+
+                        <select id="paymentMethod">
+                            <option>Cash on Delivery</option>
+                            <option>UPI </option>
+                            <option>Card </option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="total-line grand-total">
+                    <span>Order Total</span>
+                    <strong id="checkoutTotal">₹0.00</strong>
+                </div>
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary"
+                        id="cancelCheckout">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="primary">
+                        <i class="fa-solid fa-check"></i>
+                        Place Order
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </dialog>
+
+    <dialog id="successDialog">
+
+        <div class="confirmation">
+
+            <div class="big-icon">
+                <i
+                    class="fa-solid fa-circle-check"
+                    style="color: #15803d;">
+                </i>
+            </div>
+
+            <h2>Order Placed Successfully!</h2>
+
+            <p id="successText">
+                Your order has been placed.
+            </p>
+
+          
+
+            <button class="primary" id="finishOrder">
+                <i class="fa-solid fa-bag-shopping"></i>
+                Continue Shopping
+            </button>
+
+        </div>
+
+    </dialog>
+
+</body>
+</html>
